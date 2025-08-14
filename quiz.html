@@ -3,44 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Independence Day Quiz</title>
+<title>Independence Day Quiz 🇮🇳</title>
 <style>
-  body { font-family: Arial; background: #f0f0f0; text-align: center; padding: 20px; }
-  nav a { margin: 0 15px; color: darkblue; text-decoration: none; font-weight: bold; }
-  .question { margin: 20px 0; }
-  button { padding: 5px 15px; margin-top: 10px; }
+    body {
+        background: linear-gradient(to bottom, #ff9933, white, #138808);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: #000;
+        padding: 20px;
+    }
+    h1 {
+        animation: fadeIn 2s ease-in-out;
+    }
+    .question {
+        margin: 20px auto;
+        max-width: 500px;
+        background: rgba(255,255,255,0.8);
+        padding: 15px;
+        border-radius: 8px;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        background: #000080;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #0000cc;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
 </style>
 </head>
 <body>
 
-<h1>Independence Day Quiz</h1>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="history.html">History</a>
-  <a href="quiz.html">Quiz</a>
-</nav>
-
+<h1>🇮🇳 Independence Day Quiz 🇮🇳</h1>
 <div class="question">
-  <p>When did India gain independence?</p>
-  <input type="text" id="q1" placeholder="Your answer">
+    <p>1. When did India get independence?</p>
+    <button onclick="check(this,'correct')">15th August 1947</button>
+    <button onclick="check(this,'wrong')">26th January 1950</button>
 </div>
 
 <div class="question">
-  <p>Who gave the 'Tryst with Destiny' speech?</p>
-  <input type="text" id="q2" placeholder="Your answer">
+    <p>2. Who was the first Prime Minister of India?</p>
+    <button onclick="check(this,'correct')">Jawaharlal Nehru</button>
+    <button onclick="check(this,'wrong')">Mahatma Gandhi</button>
 </div>
 
-<button onclick="checkAnswers()">Submit</button>
-<p id="result"></p>
+<div class="question">
+    <p>3. Which colors are in the Indian flag?</p>
+    <button onclick="check(this,'correct')">Saffron, White, Green</button>
+    <button onclick="check(this,'wrong')">Red, Blue, Yellow</button>
+</div>
+
+<a href="index.html">🏠 Back to Home</a>
 
 <script>
-  function checkAnswers() {
-    let score = 0;
-    if (document.getElementById('q1').value.trim() === '1947') score++;
-    if (document.getElementById('q2').value.trim().toLowerCase().includes('nehru')) score++;
-    document.getElementById('result').innerText = 'You scored ' + score + '/2';
-  }
+function check(btn, status) {
+    if(status === 'correct') {
+        alert("✅ Correct!");
+    } else {
+        alert("❌ Wrong answer!");
+    }
+}
 </script>
 
 </body>
 </html>
+
