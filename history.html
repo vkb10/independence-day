@@ -3,28 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>History of Independence Day</title>
+<title>Happy Independence Day 🇮🇳</title>
 <style>
-  body { font-family: Arial; background: white; text-align: center; padding: 20px; }
-  nav a { margin: 0 15px; color: darkblue; text-decoration: none; font-weight: bold; }
-  ul { text-align: left; max-width: 600px; margin: auto; }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #ff9933, white, #138808);
+        color: #000;
+        text-align: center;
+        scroll-behavior: smooth;
+    }
+    nav {
+        background: rgba(0,0,0,0.7);
+        padding: 10px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    section {
+        padding: 80px 20px;
+        min-height: 100vh;
+    }
+    h1, h2 {
+        animation: fadeIn 2s ease-in-out;
+    }
+    .flag {
+        margin: 20px auto;
+        animation: wave 2s infinite ease-in-out;
+        width: 200px;
+    }
+    @keyframes wave {
+        0%,100% { transform: rotate(0deg); }
+        50% { transform: rotate(3deg); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .question {
+        margin: 20px auto;
+        max-width: 500px;
+        background: rgba(255,255,255,0.8);
+        padding: 15px;
+        border-radius: 8px;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        background: #000080;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover { background: #0000cc; }
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
 </style>
 </head>
 <body>
 
-<h1>History of Independence Day</h1>
+<!-- Navigation -->
 <nav>
-  <a href="index.html">Home</a>
-  <a href="history.html">History</a>
-  <a href="quiz.html">Quiz</a>
+    <a href="#home">Home</a>
+    <a href="#history">History</a>
+    <a href="#quiz">Quiz</a>
 </nav>
 
-<ul>
-  <li>1857 – First War of Independence</li>
-  <li>1885 – Formation of Indian National Congress</li>
-  <li>1942 – Quit India Movement</li>
-  <li>15 August 1947 – India becomes independent</li>
-</ul>
+<!-- Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<!-- Home Section -->
+<section id="home">
+    <h1>🇮🇳 Happy Independence Day 🇮🇳</h1>
+    <h2>Let's celebrate the spirit of freedom!</h2>
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="Indian Flag">
+</section>
+
+<!-- History Section -->
+<section id="history">
+    <h2>History of Indian Independence</h2>
+    <p>
+        India gained independence from British rule on <b>15th August 1947</b> after a long struggle led by great leaders such as
+        <b>Mahatma Gandhi, Jawaharlal Nehru, Sardar Vallabhbhai Patel, Subhas Chandra Bose</b> and countless freedom fighters.
+    </p>
+    <p>
+        The movement combined non-violent protests, civil disobedience, and sacrifices of millions.
+        The tricolour flag became the symbol of hope and unity.
+    </p>
+</section>
+
+<!-- Quiz Section -->
+<section id="quiz">
+    <h2>Independence Day Quiz</h2>
+    <div class="question">
+        <p>1. When did India get independence?</p>
+        <button onclick="check(this,'correct')">15th August 1947</button>
+        <button onclick="check(this,'wrong')">26th January 1950</button>
+    </div>
+
+    <div class="question">
+        <p>2. Who was the first Prime Minister of India?</p>
+        <button onclick="check(this,'correct')">Jawaharlal Nehru</button>
+        <button onclick="check(this,'wrong')">Mahatma Gandhi</button>
+    </div>
+
+    <div class="question">
+        <p>3. Which colors are in the Indian flag?</p>
+        <button onclick="check(this,'correct')">Saffron, White, Green</button>
+        <button onclick="check(this,'wrong')">Red, Blue, Yellow</button>
+    </div>
+</section>
+
+<script>
+// Quiz check
+function check(btn, status) {
+    if(status === 'correct') {
+        alert("✅ Correct!");
+    } else {
+        alert("❌ Wrong answer!");
+    }
+}
+
+// Fireworks animation
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function random(min, max) { return Math.random() * (max - min) + min; }
+
+class Firework {
+    constructor() {
+        this.x = random(0, canvas.width);
+        this.y = canvas.height;
+        this.color = `hsl(${random(0,360)},100%,50%)`;
+        this.particles = [];
+        this.exploded = false;
+    }
+    update() {
+        if (!this.exploded) {
+            this.y -= 4;
+            if (this.y < random(100, 300)) {
+                this.exploded = true;
+                for (let i = 0; i < 50; i++) {
+                    this.particles.push(new Particle(this.x, this.y, this.color));
+                }
+            }
+        }
+    }
+    draw() {
+        if (!this.exploded) {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+}
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.alpha = 1;
+        this.radius = random(1, 3);
+        this.speedX = random(-3, 3);
+        this.speedY = random(-3, 3);
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+    }
+    draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+}
+
+let fireworks = [];
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (Math.random() < 0.05) fireworks.push(new Firework());
+    fireworks.forEach((fw, i) => {
+        fw.update();
+        fw.draw();
+        if (fw.exploded) {
+            fw.particles.forEach((p, pi) => {
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) fw.particles.splice(pi, 1);
+            });
+            if (fw.particles.length === 0) fireworks.splice(i, 1);
+        }
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 </body>
 </html>
+
