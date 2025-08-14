@@ -7,39 +7,65 @@
 <style>
     body {
         margin: 0;
-        padding: 0;
-        background: linear-gradient(to bottom, #ff9933, white, #138808);
         font-family: Arial, sans-serif;
-        overflow: hidden;
-        text-align: center;
+        background: linear-gradient(to bottom, #ff9933, white, #138808);
         color: #000;
+        text-align: center;
+        scroll-behavior: smooth;
     }
-    h1 {
-        margin-top: 20%;
-        font-size: 3em;
+    nav {
+        background: rgba(0,0,0,0.7);
+        padding: 10px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    section {
+        padding: 80px 20px;
+        min-height: 100vh;
+    }
+    h1, h2 {
         animation: fadeIn 2s ease-in-out;
     }
-    h2 {
-        font-size: 1.5em;
-        animation: fadeIn 4s ease-in-out;
-    }
     .flag {
-        margin-top: 30px;
+        margin: 20px auto;
         animation: wave 2s infinite ease-in-out;
         width: 200px;
     }
     @keyframes wave {
-        0% { transform: rotate(0deg); }
+        0%,100% { transform: rotate(0deg); }
         50% { transform: rotate(3deg); }
-        100% { transform: rotate(0deg); }
     }
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
     }
-    /* Fireworks */
+    .question {
+        margin: 20px auto;
+        max-width: 500px;
+        background: rgba(255,255,255,0.8);
+        padding: 15px;
+        border-radius: 8px;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        background: #000080;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover { background: #0000cc; }
     canvas {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         z-index: -1;
@@ -48,14 +74,69 @@
 </head>
 <body>
 
+<!-- Navigation -->
+<nav>
+    <a href="#home">Home</a>
+    <a href="#history">History</a>
+    <a href="#quiz">Quiz</a>
+</nav>
+
+<!-- Fireworks Canvas -->
 <canvas id="fireworks"></canvas>
 
-<h1>🇮🇳 Happy Independence Day 🇮🇳</h1>
-<h2>Let's celebrate the spirit of freedom!</h2>
-<img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="Indian Flag">
+<!-- Home Section -->
+<section id="home">
+    <h1>🇮🇳 Happy Independence Day 🇮🇳</h1>
+    <h2>Let's celebrate the spirit of freedom!</h2>
+    <img class="flag" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg" alt="Indian Flag">
+</section>
+
+<!-- History Section -->
+<section id="history">
+    <h2>History of Indian Independence</h2>
+    <p>
+        India gained independence from British rule on <b>15th August 1947</b> after a long struggle led by great leaders such as
+        <b>Mahatma Gandhi, Jawaharlal Nehru, Sardar Vallabhbhai Patel, Subhas Chandra Bose</b> and countless freedom fighters.
+    </p>
+    <p>
+        The movement combined non-violent protests, civil disobedience, and sacrifices of millions.
+        The tricolour flag became the symbol of hope and unity.
+    </p>
+</section>
+
+<!-- Quiz Section -->
+<section id="quiz">
+    <h2>Independence Day Quiz</h2>
+    <div class="question">
+        <p>1. When did India get independence?</p>
+        <button onclick="check(this,'correct')">15th August 1947</button>
+        <button onclick="check(this,'wrong')">26th January 1950</button>
+    </div>
+
+    <div class="question">
+        <p>2. Who was the first Prime Minister of India?</p>
+        <button onclick="check(this,'correct')">Jawaharlal Nehru</button>
+        <button onclick="check(this,'wrong')">Mahatma Gandhi</button>
+    </div>
+
+    <div class="question">
+        <p>3. Which colors are in the Indian flag?</p>
+        <button onclick="check(this,'correct')">Saffron, White, Green</button>
+        <button onclick="check(this,'wrong')">Red, Blue, Yellow</button>
+    </div>
+</section>
 
 <script>
-// Fireworks effect
+// Quiz check
+function check(btn, status) {
+    if(status === 'correct') {
+        alert("✅ Correct!");
+    } else {
+        alert("❌ Wrong answer!");
+    }
+}
+
+// Fireworks animation
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
@@ -136,13 +217,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
-
-// Greeting popup
-setTimeout(() => {
-    alert("🇮🇳 Happy Independence Day! Let's cherish our freedom! 🇮🇳");
-}, 2000);
 </script>
 
 </body>
 </html>
-
