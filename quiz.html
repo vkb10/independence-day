@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Independence Day Quiz</title>
+<style>
+  body { font-family: Arial; background: #f0f0f0; text-align: center; padding: 20px; }
+  nav a { margin: 0 15px; color: darkblue; text-decoration: none; font-weight: bold; }
+  .question { margin: 20px 0; }
+  button { padding: 5px 15px; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>Independence Day Quiz</h1>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="history.html">History</a>
+  <a href="quiz.html">Quiz</a>
+</nav>
+
+<div class="question">
+  <p>When did India gain independence?</p>
+  <input type="text" id="q1" placeholder="Your answer">
+</div>
+
+<div class="question">
+  <p>Who gave the 'Tryst with Destiny' speech?</p>
+  <input type="text" id="q2" placeholder="Your answer">
+</div>
+
+<button onclick="checkAnswers()">Submit</button>
+<p id="result"></p>
+
+<script>
+  function checkAnswers() {
+    let score = 0;
+    if (document.getElementById('q1').value.trim() === '1947') score++;
+    if (document.getElementById('q2').value.trim().toLowerCase().includes('nehru')) score++;
+    document.getElementById('result').innerText = 'You scored ' + score + '/2';
+  }
+</script>
+
+</body>
+</html>
